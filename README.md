@@ -8,3 +8,8 @@
 
 ## Exemplo de um formulario
 [![Github-form.png](https://s13.postimg.org/wm3xljh53/Github_form.png)](https://postimg.org/image/5bimdme83/)
+
+
+### Usage
+> Para usar o formulário você pode dar um ```$ php -S <HOST>:<PORT>``` e acessar normalmente
+>  ou usar o ```$ python -m SimpleHTTPServer ``` para subir no navegador.
