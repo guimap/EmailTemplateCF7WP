@@ -1,0 +1,170 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <title>Email Form Generator</title>
+    </head>
+    <body class="container-fluid">
+        <form method="POST" class="form container">
+            <div class="form-group col-sm-12">
+                <label>Nome da Empresa</label>
+                <input type="text" name="nome-empresa" class="form-control"/>
+            </div>
+            <div class="form-group col-sm-12">
+                <label>Endereço do Logo</label>
+                <input type="text" name="logo" class="form-control"/>
+            </div>
+            <div class="form-group col-sm-12">
+                <label>Cor</label>
+                <input type="text" name="color" class="form-control"/>
+            </div>
+            <div class="form-group col-sm-5">
+                <label>Nome da TAG</label>
+                <input type="text" class="form-control" name="tag-name" />
+            </div>
+            <div class="form-group col-sm-5">
+                <label>Nome da Legenda</label>
+                <input type="text" class="form-control" name="legenda-name" />
+            </div>
+            <div class="form-group col-sm-2">
+                <button class="btn btn-primary btn-block" type="button" id="adicionar">Adicionar</button>
+            </div>
+            <div class="form-group col-sm-12">
+                <table class="table" id="table-field">
+                    <thead>
+                        <th>Nome da TAG</th>
+                        <th>Nome da Legenda</th>
+                        <th>Ação</th>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="form-group col-sm-12">
+                <button type="button" class="btn btn-success" id="build" >Gerar Template</button>
+            </div>
+            <div class="form-group col-sm-12">
+                <label>Código do Template</label>
+                <textarea style="width: 100%; height: auto" id="template-code">
+
+                </textarea>
+            </div>
+            <div class="form-group col-sm-12">
+                <label>Preview</label>
+                <div id="area">
+
+                </div>
+            </div>
+        </form>
+    </body>
+    <script>
+        var btnAdd = document.querySelector("#adicionar");
+        var tagName = document.querySelector("input[name='tag-name']");
+        var fieldName = document.querySelector("input[name='legenda-name']");
+        var tableFields = document.querySelector("#table-field tbody");
+        var btBuild = document.querySelector("#build");
+
+        var arrFields = [];
+
+
+
+
+
+        var removeRow = function(){
+            var _span = this;
+            var _index = _span.attributes['data-index'].value;
+
+            arrFields = arrFields.slice(_index,1);
+            _span.parentNode.parentNode.remove();
+        };
+
+
+        //Pega os dados e transforma em html
+        var buildHTML = function(){
+            var _image = document.querySelector("input[name='logo']").value;
+            var _nomeEmpresa= document.querySelector("input[name='nome-empresa']").value;
+            var _color = document.querySelector("input[name='color']").value;
+
+            var _arrayColors = [_color, "#fff"];
+
+            var _count = 0;
+            var _html = "";
+            _html += "<table style='width: 100%'>";
+
+            _html += "<tr style='background-color: "+ _arrayColors[1] +"'>";
+                _html += "<td colspan='2'>";
+                    _html += "<img src='"+_image+"' alt='"+_nomeEmpresa+"' >";
+                _html += "</td>";
+            _html += "</tr>";
+
+            for (var i = 0; i < arrFields.length; i ++){
+                var field = arrFields[i];
+
+                console.log(field);
+                var _currentColor = _arrayColors[(_count%2)];
+                _html += "<tr style='background-color: "+_currentColor+"'>";
+
+                _html += "<td>";
+                _html += "<strong>"+field.fieldName + "</strong>";
+                _html += "</td>";
+
+                _html += "<td>";
+                _html += field.tagName;
+                _html += "</td>";
+
+                _html += "</tr>";
+
+                _count++;
+            }
+
+            _html += "</table>";
+
+
+            document.querySelector("#template-code").value = _html;
+            document.querySelector("#area").innerHTML = _html;
+        };
+
+
+        btnAdd.addEventListener('click',function(){
+
+
+            var index = arrFields.length;
+
+            var strHTML = "<tr>";
+            strHTML += "<td>";
+            strHTML += tagName.value;
+            strHTML += "</td>";
+            strHTML += "<td>";
+            strHTML += fieldName.value;
+            strHTML += "</td>";
+            strHTML += "<td>";
+            strHTML += "<span name='remove' data-index='"+index+"'>Remover</span>";
+            strHTML += "</td>";
+            strHTML += "</tr>";
+
+            arrFields.push({
+                fieldName   : fieldName.value,
+                tagName     : tagName.value
+            });
+
+            console.log(strHTML);
+
+            tableFields.innerHTML = tableFields.innerHTML + strHTML;
+
+
+            //Registra um event para esse elemento
+            var removeButton = document.querySelectorAll("#table-field tbody tr td span[name='remove']");
+            if(removeButton){
+                removeButton.forEach(function(s){
+                    s.addEventListener('click',removeRow);
+                });
+
+            }
+
+        });
+
+        btBuild.addEventListener('click', buildHTML);
+    </script>
+
+</html>
