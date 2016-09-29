@@ -94,7 +94,7 @@
 
             _html += "<tr style='background-color: "+ _arrayColors[1] +"'>";
                 _html += "<td colspan='2'>";
-                    _html += "<img src='"+_image+"' alt='"+_nomeEmpresa+"' >";
+                    _html += "<img src='"+_image+"' alt='"+_nomeEmpresa+"' style='display:block; margin:15px auto; ' >";
                 _html += "</td>";
             _html += "</tr>";
 
@@ -124,6 +124,7 @@
             document.querySelector("#template-code").value = _html;
             document.querySelector("#area").innerHTML = _html;
         };
+        btBuild.addEventListener('click', buildHTML);
 
 
         btnAdd.addEventListener('click',function(){
@@ -164,7 +165,7 @@
 
         });
 
-        btBuild.addEventListener('click', buildHTML);
+        
     </script>
 
 </html>
