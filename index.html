@@ -75,7 +75,11 @@
             var _span = this;
             var _index = _span.attributes['data-index'].value;
 
-            arrFields = arrFields.slice(_index,1);
+
+            console.log(arrFields, _index);
+
+            arrFields.splice(_index,1);
+            console.log(arrFields, _index);
             _span.parentNode.parentNode.remove();
         };
 
