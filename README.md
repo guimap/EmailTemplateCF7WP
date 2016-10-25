@@ -11,5 +11,5 @@
 
 
 ### Usage
-> Para usar o formulário você pode dar um ```$ php -S <HOST>:<PORT>``` e acessar normalmente
+> Para usar o formulário você pode usar ```$ php -S <HOST>:<PORT>``` e acessar normalmente
 >  ou usar o ```$ python -m SimpleHTTPServer ``` para subir no navegador.
